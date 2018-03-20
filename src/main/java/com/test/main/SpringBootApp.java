@@ -7,15 +7,16 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,19 @@ public class SpringBootApp {
     @Bean
     public CommandLineRunner get() {
         return new RunLine();
+    }
+
+    @ResponseBody
+    @RequestMapping("file")
+    public Map upload(MultipartFile file) throws IOException {
+        Map map = new HashMap();
+        if (file != null) {
+            file.transferTo(new File("D://demo.txt"));
+            map.put("isSuccess", true);
+        } else {
+            map.put("isSuccess", false);
+        }
+        return map;
     }
 
     public static void main(String[] args) {
