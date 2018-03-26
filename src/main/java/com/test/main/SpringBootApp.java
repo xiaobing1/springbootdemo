@@ -1,5 +1,6 @@
 package com.test.main;
 
+import com.test.domain.Category;
 import com.test.linecommand.RunLine;
 import com.test.properties.MysqlProperties;
 import com.test.service.CategoryService;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -51,6 +53,12 @@ public class SpringBootApp {
         map.put("list", categoryService.findAll());
         map.put("props", mysqlProperties);
         return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("findById")
+    public Category findById(@RequestParam("id") Integer id) {
+        return categoryService.findById(id);
     }
 
     @Bean
