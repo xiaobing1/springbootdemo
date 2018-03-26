@@ -21,11 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Override
     public List<Category> findAll() {
         return categoryMapper.selectByExample(new CategoryExample());
     }
 
     @Cacheable(value = "category", key = "'' + #id")
+    @Override
     public Category findById(int id) {
         System.out.println("查询数据库");
         return categoryMapper.selectByPrimaryKey(id);
