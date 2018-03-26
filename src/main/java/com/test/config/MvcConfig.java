@@ -12,7 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        super.configurePathMatch(configurer);
         configurer.setUseSuffixPatternMatch(false);
     }
+
+
 }
